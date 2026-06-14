@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ruleo Agent Deployment</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Telegram WebApps SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Load Ethers.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
+    <!-- Load MetaMask SDK from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@metamask/sdk@0.34.0/dist/browser/iife/metamask-sdk.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background elements for depth and glow -->
+    <div class="ambient-glow bg-violet"></div>
+    <div class="ambient-glow bg-teal"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header animate-fade-in">
+            <div class="logo">
+                <span class="logo-text">Rule<span>o</span></span>
+                <span class="badge">Base Sepolia</span>
+            </div>
+            <p class="subtitle">Secure onchain automation powered by MetaMask Smart Accounts</p>
+        </header>
+
+        <!-- Dynamic Stages Card -->
+        <main class="main-card glass">
+            <!-- Signature Sunset Stripe -->
+            <div class="sunset-stripe"></div>
+            <!-- Summary Area -->
+            <div id="rule-summary" class="rule-summary animate-fade-in">
+                <div class="summary-header">
+                    <span class="icon">🤖</span>
+                    <h3>Pending Trading Agent</h3>
+                </div>
+                <div id="summary-content" class="summary-content">
+                    Loading your custom rule parameters...
+                </div>
+            </div>
+
+            <!-- Stage 0: MetaMask Wallet Connection -->
+            <div id="stage-connect" class="stage-container active">
+                <div class="stage-header">
+                    <div class="stage-number">0</div>
+                    <div class="stage-title">
+                        <h4>Connect MetaMask Wallet</h4>
+                        <p>Link your owner wallet on Base Sepolia (Free)</p>
+                    </div>
+                </div>
+                <div class="stage-body">
+                    <p class="info-text">Connect your MetaMask wallet. This owner signer authorizes the Smart Account delegation policies.</p>
+                    <button id="btn-connect-wallet" class="btn btn-primary btn-glow">
+                        <span class="btn-icon">🦊</span> Connect MetaMask
+                    </button>
+                    <div id="connection-details" class="success-details glass hidden">
+                        <div class="detail-row">
+                            <span class="label">Owner Address:</span>
+                            <span id="connected-address" class="value mono text-truncate">0x...</span>
+                        </div>
+                    </div>
+                    <div id="connection-error" class="error-text hidden"></div>
+                </div>
+            </div>
+
+            <!-- Stage 1: WebAuthn Passkey Registration -->
+            <div id="stage-passkey" class="stage-container disabled">
+                <div class="stage-header">
+                    <div class="stage-number">1</div>
+                    <div class="stage-title">
+                        <h4>Biometric Passkey Setup</h4>
+                        <p>Generate a secure, passkey-bound owner key</p>
+                    </div>
+                </div>
+                <div class="stage-body">
+                    <p class="info-text">We secure your Smart Account using local biometrics (Face ID / Touch ID / PIN) stored securely on your device's hardware enclave.</p>
+                    <button id="btn-create-passkey" class="btn btn-primary btn-glow">
+                        <span class="btn-icon">🔑</span> Create Owner Passkey
+                    </button>
+                    <div id="passkey-error" class="error-text hidden"></div>
+                </div>
+            </div>
+
+            <!-- Stage 2: MetaMask Smart Account & Caveat Signing -->
+            <div id="stage-account" class="stage-container disabled">
+                <div class="stage-header">
+                    <div class="stage-number">2</div>
+                    <div class="stage-title">
+                        <h4>Create Account & Sign Caveats</h4>
+                        <p>Generate MetaMask Smart Account & sign ERC-7715 caveats</p>
+                    </div>
+                </div>
+                <div class="stage-body">
+                    <div class="caveats-checklist">
+                        <h5>Review ERC-7715 Permissions</h5>
+                        <div id="caveats-list" class="caveats-list">
+                            <!-- Caveats will be dynamically populated here -->
+                        </div>
+                    </div>
+                    
+                    <button id="btn-deploy-account" class="btn btn-primary" disabled>
+                        <span class="btn-icon">⚡</span> Approve & Sign Smart Agent
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stage 3: 1Shot Gasless Deployment -->
+            <div id="stage-relaying" class="stage-container hidden">
+                <div class="stage-header">
+                    <div class="spinner"></div>
+                    <div class="stage-title">
+                        <h4>Relaying via 1Shot API</h4>
+                        <p>Submitting gasless transaction to Base Sepolia...</p>
+                    </div>
+                </div>
+                <div class="stage-body">
+                    <div class="console-log-box">
+                        <div class="console-header">
+                            <span>1Shot Gasless Relayer Console</span>
+                            <span class="pulse-dot"></span>
+                        </div>
+                        <div id="console-logs" class="console-logs mono">
+                            <!-- Logs will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 4: Deployed Success -->
+            <div id="stage-success" class="stage-container hidden">
+                <div class="success-banner animate-scale-up">
+                    <div class="success-icon">✓</div>
+                    <h3>Agent Successfully Deployed!</h3>
+                    <p id="success-banner-desc">Your agent is derived on Base Sepolia. Fund the smart account to activate monitoring.</p>
+                </div>
+                
+                <div class="success-details glass">
+                    <div class="detail-row">
+                        <span class="label">Smart Account:</span>
+                        <span id="success-address" class="value mono text-truncate">0x...</span>
+                    </div>
+                    <div id="success-tx-row" class="detail-row">
+                        <span class="label">Relayed TX Hash:</span>
+                        <span id="success-tx" class="value mono text-truncate">0x...</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Balance:</span>
+                        <span id="success-balance" class="value mono text-success">$0.00 USD</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Status:</span>
+                        <span id="success-status" class="value status-needs-funding"><span class="warning-pulse"></span> Needs Funding</span>
+                    </div>
+                </div>
+
+                <div class="wallet-history-card glass">
+                    <h4>Agent Wallet Ledger (x402 & Trades)</h4>
+                    <div id="tx-history-list" class="tx-history-list">
+                        <p class="history-empty">No transactions logged yet.</p>
+                    </div>
+                </div>
+
+                <button id="btn-fund-agent" class="btn btn-primary btn-glow" style="margin-bottom: 8px;">
+                    <span class="btn-icon">💰</span> Fund Agent (Deposit $100)
+                </button>
+
+                <button id="btn-close-app" class="btn btn-secondary">
+                    Close & Return to Chat
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer Branded Tags -->
+        <footer class="footer-tags animate-fade-in">
+            <span>Powered by</span>
+            <div class="sponsor-logos">
+                <span class="sponsor">MetaMask Smart Accounts</span>
+                <span class="divider">•</span>
+                <span class="sponsor">1Shot Relayer</span>
+                <span class="divider">•</span>
+                <span class="sponsor">Groq API</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

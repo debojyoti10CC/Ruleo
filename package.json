@@ -1,0 +1,28 @@
+{
+  "name": "vibecode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@metamask/smart-accounts-kit": "^1.6.0",
+    "axios": "^1.17.0",
+    "dotenv": "^17.4.2",
+    "telegraf": "^4.16.3",
+    "viem": "2.31.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "localtunnel": "^2.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
