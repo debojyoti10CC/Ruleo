@@ -8,6 +8,7 @@
 [![1Shot Relayer](https://img.shields.io/badge/1Shot-EIP--7710-blue)](https://relayer.1shotapi.dev)
 [![Uniswap V3](https://img.shields.io/badge/Uniswap-V3-FF007A?logo=uniswap)](https://uniswap.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](#license)
+<img width="576" height="576" alt="literally just me 🍽️ on TikTok" src="https://github.com/user-attachments/assets/a8ba9f8a-ec5d-49e1-a42a-2ca13bcb5c2d" />
 
 [Live TMA Demo](https://f38326ae29c457.lhr.life) • [Quick Start](#-installation--quick-start) • [Architecture](#-architecture) • [Security Model](#-zero-custody-security-model) • [Contact](#-contact)
 
