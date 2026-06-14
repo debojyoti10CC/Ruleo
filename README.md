@@ -182,9 +182,8 @@ We welcome contributions from the community to expand the boundaries of non-cust
 
 ## 📞 Contact
 
-**IEEE IEM Student Branch / Ruleo Contributors**
+** Ruleo Contributors**
 * **Repository:** [debojyoti10CC/Ruleo](https://github.com/debojyoti10CC/Ruleo)
-* **Demo App:** [Telegram Mini App](https://f38326ae29c457.lhr.life)
 
 ---
 
