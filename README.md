@@ -168,6 +168,70 @@ Below is how the parsed text rules map to strict ERC-7715 constraints under the 
 
 ---
 
+## 🏆 Hackathon Tracks & Code Usage
+
+This section provides direct code references for the hackathon tracks we are applying for.
+
+### 🦊 MetaMask Smart Accounts Kit Usage
+
+Ruleo uses MetaMask Smart Accounts (Hybrid/Stateless EIP-7702 smart account contracts) to build non-custodial trading agents.
+
+*   **Delegations**
+    *   **Creating Delegations:** Delegations are configured with target contract permissions and periodic allowance limits via the `createDelegation` method in [index.ts#L460-L483](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L460-L483).
+    *   **Redeeming Delegations:** The delegation is signed by the owner via MetaMask SDK's `eth_signTypedData_v4` in [public/app.js#L390-L403](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/public/app.js#L390-L403). It is then submitted as the execution permission context inside `executeTrade` to the 1Shot Relayer in [src/relayer/one-shot.ts#L360-L400](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/src/relayer/one-shot.ts#L360-L400).
+*   **Advanced Permissions**
+    *   *Requesting Advanced Permissions:* Not Used (Standard EIP-7715 delegations are used to restrict contract actions and token allowances).
+    *   *Redeeming Advanced Permissions:* Not Used.
+*   **Redelegations**
+    *   *Creating Redelegation:* Not Used.
+*   **x402 Micropayments**
+    *   **Server Logic:** The server charges virtual x402 credit for AI model compilation using `deductX402Fee` in [agent-wallet.ts#L75-L101](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/agent-wallet.ts#L75-L101). Micropayments are triggered during user rule parsing ([index.ts#L184](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L184), [index.ts#L271](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L271)) and execution status webhook callback updates ([index.ts#L661](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L661), [index.ts#L693](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L693)).
+    *   **Client Usage:** The client signs delegations gaslessly in [public/app.js#L390-L403](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/public/app.js#L390-L403) and initiates registration via `/api/deploy` in [index.ts#L525-L603](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L525-L603).
+
+---
+
+### ⚡ 1Shot API Usage
+
+All autonomous, non-custodial executions are broadcast gas-abstracted through the 1Shot Relayer.
+
+*   **Capabilities & Estimation:** We query supported chain capabilities and estimate fee amounts dynamically:
+    *   `relayer_getCapabilities`: [src/relayer/one-shot.ts#L297](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/src/relayer/one-shot.ts#L297)
+    *   `relayer_estimate7710Transaction`: [src/relayer/one-shot.ts#L380](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/src/relayer/one-shot.ts#L380)
+*   **Transaction Broadcast & Status:** We submit the EIP-7710 execution payload and track its transaction receipt:
+    *   `relayer_send7710Transaction`: [src/relayer/one-shot.ts#L396](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/src/relayer/one-shot.ts#L396)
+    *   `relayer_getStatus`: [src/relayer/one-shot.ts#L408](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/src/relayer/one-shot.ts#L408)
+*   **Webhook Listener:** Handles real-time transaction updates from the 1Shot Relayer:
+    *   Webhook Route: [index.ts#L653-L718](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/index.ts#L653-L718)
+    *   Webhook Handler: [src/webhooks/oneshot-webhook.ts](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/src/webhooks/oneshot-webhook.ts)
+
+---
+
+### 🎭 Venice AI Usage
+
+Venice AI compiles trading strategies written in unstructured English into parameterized JSON rules.
+
+*   **API Configuration:** Dynamically configured endpoint (`https://api.venice.ai/api/v1/chat/completions`) and model parameters (`llama-3.3-70b`) are declared in [llm-parser.ts#L7-L20](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/llm-parser.ts#L7-L20).
+*   **Parser Call:** Strategy text is parsed to build structured intents via `parseRule` in [llm-parser.ts#L92-L138](file:///c:/Users/Debojyoti%20De%20Majumde/vibecode/llm-parser.ts#L92-L138).
+
+---
+
+### 💬 Feedback
+
+We highly appreciate feedback on Ruleo! 
+*   Please file feedback by opening an issue on the [Ruleo GitHub Issues Page](https://github.com/debojyoti10CC/Ruleo/issues).
+*   Specific issue links:
+    *   [Issue #1: General Feedback / Improvement Ideas](https://github.com/debojyoti10CC/Ruleo/issues)
+
+---
+
+### 🐦 Social Media (X)
+
+Check out our updates and showcases on X:
+*   **Project Launch / Demo Tweet:** [Link to tweet]()
+*   **Walkthrough Video / Feature Showcase Tweet:** [Link to tweet]()
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions from the community to expand the boundaries of non-custodial automated trading.
