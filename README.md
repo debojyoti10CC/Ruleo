@@ -221,11 +221,23 @@ https://x.com/debojyotidm/status/2066478191817245049?s=20
 
 ---
 
-### 🐦 Social Media (X)
+###  Social Media (X)
 
 Check out our updates and showcases on X:
-*   **Project Launch / Demo Tweet:** [Link to tweet]()
-*   **Walkthrough Video / Feature Showcase Tweet:** [Link to tweet]()
+*   **Project Launch**
+https://x.com/debojyotidm/status/2066189987343892531?s=20
+*   **Day 6**
+https://x.com/debojyotidm/status/2065530011403321541?s=20
+*   **Day 5**
+https://x.com/debojyotidm/status/2065194835531960527?s=20
+*   **Day 4**
+https://x.com/debojyotidm/status/2064810374051102933?s=20
+*   **Day 3**
+https://x.com/debojyotidm/status/2064423224319107474?s=20
+*   **Day 2**
+https://x.com/debojyotidm/status/2064067822653956127?s=20
+*   **Day 1**
+https://x.com/debojyotidm/status/2063707105979494475?s=20
 
 ---
 
