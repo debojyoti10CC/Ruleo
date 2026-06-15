@@ -217,10 +217,7 @@ Venice AI compiles trading strategies written in unstructured English into param
 
 ### 💬 Feedback
 
-We highly appreciate feedback on Ruleo! 
-*   Please file feedback by opening an issue on the [Ruleo GitHub Issues Page](https://github.com/debojyoti10CC/Ruleo/issues).
-*   Specific issue links:
-    *   [Issue #1: General Feedback / Improvement Ideas](https://github.com/debojyoti10CC/Ruleo/issues)
+https://x.com/debojyotidm/status/2066478191817245049?s=20
 
 ---
 
